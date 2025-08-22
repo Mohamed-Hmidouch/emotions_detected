@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="w        <!-- En-tête de section -->
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center glass-effect rounded-full px-6 py-3 mb-6">
+                <div class="w-6 h-6 premium-gradient rounded-lg flex items-center justify-center mr-2">
+                    <span class="text-sm">🎥</span>
+                </div>
+                <span class="text-white font-medium">Live Detection</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                Real-time 
+                <span class="bg-gradient-to-r from-accent to-white bg-clip-text text-transparent">
+                    Analysis
+                </span>
+            </h2>
+            <p class="text-xl text-white/70 max-w-2xl mx-auto">
+                Professional AI emotion detection via live camera feed
+            </p>
+        </div>, initial-scale=1.0">
+    <title>Caméra Live - AI Emotion Detector</title>
+    <meta name="description" content="Détection d'émotions en temps réel via caméra live">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration Tailwind personnalisée -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#6366f1',        // Indigo moderne (comme Stripe, Discord)
+                        'secondary': '#8b5cf6',      // Violet premium (comme Twitch, Yahoo)
+                        'accent': '#06b6d4',         // Cyan professionnel (comme Tailwind, Figma)
+                    },
+                    animation: {
+                        'pulse-glow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'scan': 'scan 2s linear infinite',
+                        'fade-in': 'fadeIn 0.6s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Styles personnalisés -->
+    <style>
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            background-size: 200% 200%;
+            animation: gradientMove 10s ease infinite;
+        }
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .camera-frame {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+        }
+        .camera-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #06b6d4, transparent);
+            animation: scan 3s ease-in-out infinite;
+            z-index: 10;
+            box-shadow: 0 0 10px #06b6d4;
+        }
+        .startup-shadow {
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.1), 
+                       0 10px 10px -5px rgba(139, 92, 246, 0.04);
+        }
+        .status-indicator {
+            animation: pulse 2s infinite;
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+        .accent-gradient {
+            background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation header -->
+    <nav class="relative z-20 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 premium-gradient rounded-lg flex items-center justify-center shadow-lg">
+                    <span class="text-xl">�</span>
+                </div>
+                <h1 class="text-xl font-bold text-white">Emotion AI</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="status-indicator w-3 h-3 bg-red-500 rounded-full"></div>
+                <span class="text-white/80 text-sm font-medium">LIVE</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-8">
+        <!-- En-tête de section -->
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center holographic rounded-full px-6 py-3 mb-6 neon-border">
+                <span class="text-2xl mr-2 animate-spin">�</span>
+                <span class="text-white font-bold cyber-text">Détection Créative Temps Réel</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 animate-glow">
+                Caméra 
+                <span class="cyber-text">
+                    Magique
+                </span>
+            </h2>
+            <p class="text-xl text-white/90 max-w-2xl mx-auto">
+                <span class="text-emotion-accent font-bold">Intelligence artificielle créative</span> analysant vos émotions 
+                <span class="cyber-text">en continu</span> via votre caméra
+            </p>
+        </div>
+
+        <!-- Conteneur de la caméra -->
+        <div class="max-w-4xl mx-auto mb-12">
+            <!-- Cadre de la caméra -->
+            <div class="glass-effect rounded-3xl p-6 emotion-shadow">
+                <div class="relative camera-frame rounded-2xl overflow-hidden bg-black/20">
+                    <!-- Indicateurs de statut -->
+                    <div class="absolute top-4 left-4 z-20 flex items-center space-x-3">
+                        <div class="bg-black/50 rounded-full px-3 py-1 flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                            <span class="text-white text-sm font-medium">REC</span>
+                        </div>
+                        <div class="bg-black/50 rounded-full px-3 py-1">
+                            <span class="text-white text-sm" id="timestamp"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Indicateurs d'émotions en overlay -->
+                    <div class="absolute top-4 right-4 z-20">
+                        <div class="bg-black/50 rounded-xl p-3 space-y-2">
+                            <div class="text-white text-sm font-medium">Émotions Détectées</div>
+                            <div id="emotionBadges" class="space-y-1">
+                                <!-- Les badges d'émotions seront ajoutés dynamiquement -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Grille d'analyse -->
+                    <div class="absolute inset-0 z-10 pointer-events-none">
+                        <svg class="w-full h-full opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(240, 147, 251, 0.3)" stroke-width="0.5"/>
+                                </pattern>
+                            </defs>
+                            <rect width="100" height="100" fill="url(#grid)" />
+                        </svg>
+                    </div>
+                    
+                    <!-- Flux vidéo -->
+                    <img src="{{ url_for('video_feed') }}" 
+                         alt="Flux vidéo en direct"
+                         class="w-full h-auto min-h-[400px] object-cover"
+                         id="videoFeed">
+                </div>
+                
+                    <!-- Contrôles de la caméra -->
+                <div class="flex justify-between items-center mt-6">
+                    <div class="flex space-x-3">
+                        <button id="toggleDetection" 
+                                class="premium-gradient text-white px-6 py-3 rounded-xl transition-all duration-300 flex items-center space-x-2 hover:shadow-lg">
+                            <span class="text-lg">⏸️</span>
+                            <span class="font-medium">Pause</span>
+                        </button>
+                        <button id="captureBtn" 
+                                class="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl transition-all duration-300 flex items-center space-x-2">
+                            <span class="text-lg">📸</span>
+                            <span class="font-medium">Capture</span>
+                        </button>
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button id="settingsBtn" 
+                                class="bg-white/10 hover:bg-white/20 text-white p-3 rounded-xl transition-all duration-300">
+                            <span class="text-lg">⚙️</span>
+                        </button>
+                        <button id="fullscreenBtn" 
+                                class="bg-white/10 hover:bg-white/20 text-white p-3 rounded-xl transition-all duration-300">
+                            <span class="text-lg">⛶</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistiques en temps réel -->
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="glass-effect rounded-2xl p-6 text-center neon-border hover:scale-105 transition-transform">
+                <div class="text-3xl mb-2 animate-bounce">🌈</div>
+                <div class="text-white text-lg font-semibold">Bonheur</div>
+                <div class="cyber-text text-2xl font-bold" id="happyScore">0%</div>
+            </div>
+            <div class="glass-effect rounded-2xl p-6 text-center neon-border hover:scale-105 transition-transform">
+                <div class="text-3xl mb-2 animate-bounce">�</div>
+                <div class="text-white text-lg font-semibold">Énergie</div>
+                <div class="cyber-text text-2xl font-bold" id="angerScore">0%</div>
+            </div>
+            <div class="glass-effect rounded-2xl p-6 text-center neon-border hover:scale-105 transition-transform">
+                <div class="text-3xl mb-2 animate-bounce">�</div>
+                <div class="text-white text-lg font-semibold">Sérénité</div>
+                <div class="cyber-text text-2xl font-bold" id="sadnessScore">0%</div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="text-center space-y-6">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/" 
+                   class="inline-flex items-center justify-center bg-gradient-to-r from-emotion-purple to-emotion-blue hover:from-emotion-orange hover:to-emotion-pink text-white font-bold py-4 px-8 rounded-xl transition-all duration-500 transform hover:scale-110">
+                    <span class="mr-2">🌈</span>
+                    Retour Magique
+                </a>
+                <button id="downloadBtn" 
+                        class="inline-flex items-center justify-center holographic text-white font-bold py-4 px-8 rounded-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-300 neon-border">
+                    <span class="mr-2">�</span>
+                    Sauver la Magie
+                </button>
+            </div>
+            
+            <!-- Informations techniques -->
+            <div class="glass-effect rounded-xl p-4 inline-block neon-border">
+                <div class="text-white/90 text-sm space-x-4">
+                    <span>FPS: <span id="fpsCounter" class="cyber-text font-mono font-bold">--</span></span>
+                    <span class="text-emotion-accent">•</span>
+                    <span>Latence: <span id="latencyCounter" class="cyber-text font-mono font-bold">--ms</span></span>
+                    <span class="text-emotion-accent">•</span>
+                    <span>Qualité: <span class="text-emotion-cyber font-bold">ULTRA HD</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative z-10 mt-16 text-center text-white/60">
+        <div class="max-w-7xl mx-auto px-6 py-8 border-t border-white/10">
+            <p class="mb-2">Analyse en temps réel • Respect de la vie privée 🔒</p>
+            <p class="text-sm">Aucune donnée vidéo n'est stockée • Traitement local sécurisé</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript pour les interactions -->
+    <script>
+        // Progressive Enhancement et gestion d'état de l'interface
+        
+        // 1. Horloge en temps réel
+        function updateTimestamp() {
+            const now = new Date();
+            const timestamp = now.toLocaleTimeString('fr-FR');
+            document.getElementById('timestamp').textContent = timestamp;
+        }
+        setInterval(updateTimestamp, 1000);
+        updateTimestamp();
+        
+        // 2. Simulation du compteur FPS (à remplacer par de vraies métriques)
+        function updateMetrics() {
+            const fps = Math.floor(Math.random() * 5) + 25; // 25-30 FPS simulé
+            const latency = Math.floor(Math.random() * 20) + 10; // 10-30ms simulé
+            
+            document.getElementById('fpsCounter').textContent = fps;
+            document.getElementById('latencyCounter').textContent = latency + 'ms';
+        }
+        setInterval(updateMetrics, 2000);
+        updateMetrics();
+        
+        // 3. Gestion des contrôles de caméra
+        let isDetectionActive = true;
+        
+        document.getElementById('toggleDetection').addEventListener('click', function() {
+            isDetectionActive = !isDetectionActive;
+            const btn = this;
+            
+            if (isDetectionActive) {
+                btn.innerHTML = '<span class="text-lg">⏸️</span><span>Pause</span>';
+                btn.className = btn.className.replace('bg-green-500', 'bg-emotion-primary');
+            } else {
+                btn.innerHTML = '<span class="text-lg">▶️</span><span>Reprendre</span>';
+                btn.className = btn.className.replace('bg-emotion-primary', 'bg-green-500');
+            }
+        });
+        
+        // 4. Capture d'écran
+        document.getElementById('captureBtn').addEventListener('click', function() {
+            // Effet visuel de capture
+            const flash = document.createElement('div');
+            flash.className = 'fixed inset-0 bg-white opacity-75 z-50 pointer-events-none';
+            document.body.appendChild(flash);
+            
+            setTimeout(() => {
+                document.body.removeChild(flash);
+            }, 100);
+            
+            // Animation du bouton
+            this.classList.add('animate-pulse');
+            setTimeout(() => {
+                this.classList.remove('animate-pulse');
+            }, 1000);
+        });
+        
+        // 5. Mode plein écran
+        document.getElementById('fullscreenBtn').addEventListener('click', function() {
+            const videoContainer = document.querySelector('.camera-frame');
+            
+            if (!document.fullscreenElement) {
+                videoContainer.requestFullscreen().catch(err => {
+                    console.log('Erreur plein écran:', err);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        });
+        
+        // 6. Simulation des scores d'émotions (à remplacer par vraies données)
+        function updateEmotionScores() {
+            const emotions = ['happyScore', 'angerScore', 'sadnessScore'];
+            emotions.forEach(emotion => {
+                const score = Math.floor(Math.random() * 100);
+                const element = document.getElementById(emotion);
+                if (element) {
+                    element.textContent = score + '%';
+                    
+                    // Animation de changement
+                    element.classList.add('animate-pulse');
+                    setTimeout(() => {
+                        element.classList.remove('animate-pulse');
+                    }, 500);
+                }
+            });
+        }
+        setInterval(updateEmotionScores, 3000);
+        
+        // 7. Gestion des erreurs de flux vidéo
+        const videoFeed = document.getElementById('videoFeed');
+        videoFeed.addEventListener('error', function() {
+            this.style.background = 'linear-gradient(135deg, #333, #555)';
+            this.alt = 'Erreur de connexion caméra';
+        });
+        
+        // 8. Optimisation performance : pause les animations hors écran
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                } else {
+                    entry.target.style.animationPlayState = 'paused';
+                }
+            });
+        });
+        
+        document.querySelectorAll('.animate-pulse, .animate-pulse-glow').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // 9. Raccourcis clavier accessibilité
+        document.addEventListener('keydown', function(e) {
+            if (e.key === ' ') { // Espace pour pause/play
+                e.preventDefault();
+                document.getElementById('toggleDetection').click();
+            } else if (e.key === 'c' && e.ctrlKey) { // Ctrl+C pour capture
+                e.preventDefault();
+                document.getElementById('captureBtn').click();
+            }
+        });
+    </script>
+    
+    <!-- Styles d'accessibilité -->
+    <style>
+        /* Navigation clavier visible */
+        .keyboard-navigation *:focus {
+            outline: 2px solid #f093fb !important;
+            outline-offset: 2px !important;
+        }
+        
+        /* Respect préférences utilisateur pour réduction mouvement */
+        @media (prefers-reduced-motion: reduce) {
+            .animate-pulse,
+            .animate-pulse-glow,
+            .camera-frame::before {
+                animation: none !important;
+            }
+            
+            * {
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Mode sombre natif */
+        @media (prefers-color-scheme: dark) {
+            .glass-effect {
+                background: rgba(0, 0, 0, 0.3);
+            }
+        }
+        
+        /* Mode plein écran */
+        .camera-frame:fullscreen {
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .camera-frame:fullscreen img {
+            max-width: 100vw;
+            max-height: 100vh;
+            object-fit: contain;
+        }
+    </style>
+</body>
+</html>

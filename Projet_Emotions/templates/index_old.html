@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="vie        <!-- Titre principal -->
+        <div class="text-center mb-16">
+            <div class="animate-float mb-8">
+                <div class="w-20 h-20 premium-gradient rounded-2xl flex items-center justify-center mx-auto shadow-2xl">
+                    <span class="text-4xl">🎯</span>
+                </div>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Detect 
+                <span class="bg-gradient-to-r from-accent to-white bg-clip-text text-transparent">
+                    Emotions
+                </span>
+            </h2>
+            <p class="text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
+                Advanced AI technology to analyze emotions in real-time. 
+                <span class="text-accent font-semibold">Simple, powerful, accurate.</span>
+            </p>
+        </div>width=device-width, initial-scale=1.0">
+    <title>AI Emotion Detector - Reconnaissance d'Émotions</title>
+    <meta name="description" content="Application IA de détection d'émotions en temps réel via upload d'images ou caméra live">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration Tailwind personnalisée -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#6366f1',        // Indigo moderne (comme Stripe, Discord)
+                        'secondary': '#8b5cf6',      // Violet premium (comme Twitch, Yahoo)
+                        'accent': '#06b6d4',         // Cyan professionnel (comme Tailwind, Figma)
+                    },
+                    animation: {
+                        'pulse-glow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.6s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Styles personnalisés -->
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            background-size: 200% 200%;
+            animation: gradientMove 10s ease infinite;
+        }
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .startup-shadow {
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.1), 
+                       0 10px 10px -5px rgba(139, 92, 246, 0.04);
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+        .accent-gradient {
+            background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation header -->
+    <nav class="relative z-10 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 premium-gradient rounded-lg flex items-center justify-center shadow-lg">
+                    <span class="text-xl">🧠</span>
+                </div>
+                <h1 class="text-xl font-bold text-white">Emotion AI</h1>
+            </div>
+            <div class="hidden md:flex space-x-6 text-white/80 text-sm font-medium">
+                <span class="hover:text-white transition-colors cursor-pointer">Home</span>
+                <span class="hover:text-white transition-colors cursor-pointer">About</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <!-- Titre principal -->
+        <div class="text-center mb-16">
+            <div class="animate-float mb-6">
+                <span class="text-8xl animate-rainbow">�</span>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight animate-glow">
+                Explorez vos 
+                <span class="cyber-text">
+                    Émotions
+                </span>
+            </h2>
+            <p class="text-xl text-white/90 max-w-2xl mx-auto mb-8">
+                Intelligence artificielle créative pour détecter et analyser les émotions avec style. 
+                <span class="text-emotion-accent font-semibold">Vivez une expérience visuelle unique !</span>
+            </p>
+        </div>
+
+        <!-- Conteneur principal -->
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+            <!-- Section Upload -->
+            <div class="glass-effect rounded-3xl p-8 emotion-shadow neon-glow">
+                <h3 class="text-2xl font-semibold text-white mb-6 flex items-center">
+                    <span class="mr-3 text-3xl animate-rainbow">�</span>
+                    Upload Créatif
+                </h3>
+                
+                <form action="/predict" method="post" enctype="multipart/form-data" class="space-y-6">
+                    <!-- Zone de drag & drop -->
+                    <div class="relative">
+                        <input type="file" name="image" id="imageInput" required accept="image/*"
+                               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                        <div class="border-2 border-dashed border-emotion-cyber rounded-2xl p-12 text-center hover:border-emotion-accent transition-all duration-300 hover:bg-emotion-primary/10 holographic">
+                            <div class="mb-4">
+                                <span class="text-6xl opacity-80 animate-bounce">🎪</span>
+                            </div>
+                            <p class="text-white/90 text-lg">
+                                <span class="cyber-text font-bold">Glissez votre magie ici</span> ou 
+                                <span class="text-emotion-accent font-semibold underline animate-pulse">explorez vos fichiers</span>
+                            </p>
+                            <p class="text-emotion-cyan text-sm mt-2 font-semibold">PNG, JPG, JPEG • Préparez-vous à être émerveillé !</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Boutons d'action -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button type="submit" 
+                                class="flex-1 holographic text-white font-bold py-4 px-8 rounded-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-300 neon-glow">
+                            <span class="mr-2">✨</span>
+                            Révéler l'Émotion
+                        </button>
+                        <a href="/camera" 
+                           class="flex-1 bg-gradient-to-r from-emotion-purple to-emotion-blue text-white font-bold py-4 px-8 rounded-xl hover:from-emotion-orange hover:to-emotion-pink transition-all duration-500 text-center transform hover:scale-105">
+                            <span class="mr-2">�</span>
+                            Caméra Magique
+                        </a>
+                    </div>
+                </form>
+                
+                <!-- Indication de processus -->
+                <div id="loadingIndicator" class="hidden mt-6 text-center">
+                    <div class="inline-flex items-center text-white/80">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Analyse en cours...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Résultat -->
+            {% if result %}
+            <div class="glass-effect rounded-3xl p-8 emotion-shadow animate-pulse-glow neon-glow">
+                <h3 class="text-2xl font-semibold text-white mb-6 flex items-center">
+                    <span class="mr-3 text-3xl animate-spin">�</span>
+                    Magie Révélée !
+                </h3>
+                
+                <div class="text-center space-y-6">
+                    <!-- Émotion détectée -->
+                    <div class="holographic rounded-2xl p-6 neon-glow">
+                        <p class="text-white/90 text-lg mb-2">Émotion Découverte</p>
+                        <p class="text-4xl font-bold cyber-text mb-4 animate-glow">{{ result }}</p>
+                        <div class="text-6xl animate-bounce">
+                            {% if result.lower() == 'happy' %}🌈
+                            {% elif result.lower() == 'sad' %}�
+                            {% elif result.lower() == 'angry' %}�
+                            {% elif result.lower() == 'surprise' %}⚡
+                            {% elif result.lower() == 'fear' %}🌊
+                            {% elif result.lower() == 'disgust' %}🍃
+                            {% else %}🎭
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Image analysée -->
+                    <div class="bg-gradient-to-br from-emotion-primary/20 to-emotion-secondary/20 rounded-2xl p-4 neon-glow">
+                        <img src="{{ image_path }}" alt="Image analysée" 
+                             class="w-full max-w-sm mx-auto rounded-xl shadow-lg border-2 border-emotion-accent">
+                    </div>
+                    
+                    <!-- Actions supplémentaires -->
+                    <div class="flex gap-3">
+                        <button class="flex-1 bg-gradient-to-r from-emotion-pink to-emotion-violet text-white py-3 px-4 rounded-xl hover:from-emotion-cyber hover:to-emotion-neon transition-all transform hover:scale-105">
+                            � Sauvegarder
+                        </button>
+                        <button class="flex-1 bg-gradient-to-r from-emotion-blue to-emotion-purple text-white py-3 px-4 rounded-xl hover:from-emotion-orange hover:to-emotion-accent transition-all transform hover:scale-105">
+                            � Partager
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- État initial sans résultat -->
+            <div class="glass-effect rounded-3xl p-8 emotion-shadow opacity-70">
+                <h3 class="text-2xl font-semibold text-white mb-6 flex items-center">
+                    <span class="mr-3 text-3xl animate-pulse">�</span>
+                    Spectacle à Venir
+                </h3>
+                <div class="text-center py-12">
+                    <div class="text-8xl mb-4 opacity-60 animate-bounce">🎨</div>
+                    <p class="cyber-text text-lg font-semibold">Uploadez une image pour libérer la magie !</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <!-- Section Historique -->
+        {% if history %}
+        <div class="mt-16">
+            <div class="glass-effect rounded-3xl p-8">
+                <h3 class="text-2xl font-semibold text-white mb-6 flex items-center">
+                    <span class="mr-3 text-3xl">📜</span>
+                    Historique des Analyses
+                </h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {% for item in history %}
+                    <div class="bg-white/10 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 cursor-pointer group">
+                        <img src="{{ item.image }}" 
+                             class="w-full h-24 object-cover rounded-lg mb-3 group-hover:scale-105 transition-transform">
+                        <p class="text-white/80 text-sm text-center font-medium">{{ item.emotion }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative z-10 mt-20 text-center text-white/60">
+        <div class="max-w-7xl mx-auto px-6 py-8 border-t border-white/10">
+            <p class="mb-2">Propulsé par l'Intelligence Artificielle 🤖</p>
+            <p class="text-sm">Détection d'émotions en temps réel • Technologie de pointe • Expérience utilisateur premium</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript pour les interactions -->
+    <script>
+        // Progressive Enhancement : amélioration de l'UX sans casser la fonctionnalité de base
+        
+        // 1. Gestion du drag & drop
+        const dropZone = document.querySelector('input[type="file"]').parentElement;
+        const form = document.querySelector('form');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight(e) {
+            dropZone.classList.add('border-white/70', 'bg-white/10');
+        }
+        
+        function unhighlight(e) {
+            dropZone.classList.remove('border-white/70', 'bg-white/10');
+        }
+        
+        dropZone.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            const fileInput = document.getElementById('imageInput');
+            fileInput.files = files;
+        }
+        
+        // 2. Indicateur de chargement lors de la soumission
+        form.addEventListener('submit', function() {
+            loadingIndicator.classList.remove('hidden');
+            document.querySelector('button[type="submit"]').disabled = true;
+        });
+        
+        // 3. Prévisualisation d'image (accessibility)
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Créer une prévisualisation accessible
+                    console.log('Image sélectionnée:', e.target.files[0].name);
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+        
+        // 4. Animation fluide au scroll (performance optimisée)
+        let ticking = false;
+        
+        function updateScrollAnimations() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.animate-float');
+            
+            parallaxElements.forEach(el => {
+                const speed = 0.5;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+            
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollAnimations);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick);
+        
+        // 5. Gestion responsive du design
+        function handleResize() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        
+        // 6. Accessibilité : focus visible et navigation clavier
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+        
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
+        });
+    </script>
+    
+    <!-- Styles pour l'accessibilité -->
+    <style>
+        .keyboard-navigation *:focus {
+            outline: 2px solid #f093fb !important;
+            outline-offset: 2px !important;
+        }
+        
+        /* Optimisation performance : reduce motion pour les utilisateurs sensibles */
+        @media (prefers-reduced-motion: reduce) {
+            .animate-float,
+            .animate-pulse-glow {
+                animation: none !important;
+            }
+            
+            * {
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Dark mode support natif */
+        @media (prefers-color-scheme: dark) {
+            .glass-effect {
+                background: rgba(0, 0, 0, 0.2);
+            }
+        }
+    </style>
+</body>
+</html>

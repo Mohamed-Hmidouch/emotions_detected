@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion AI - Advanced Emotion Detection</title>
+    <meta name="description" content="Professional AI emotion detection platform with real-time analysis">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration Tailwind personnalisée -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#dc2626',        // Rouge intense (comme Netflix, YouTube)
+                        'secondary': '#991b1b',      // Rouge sombre premium
+                        'accent': '#ffffff',         // Blanc pur pour contraste
+                        'dark': '#0f0f0f',          // Noir profond
+                        'gray-dark': '#262626',      // Gris sombre
+                    },
+                    animation: {
+                        'pulse-glow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.6s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Styles personnalisés -->
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f0f0f 0%, #991b1b 50%, #dc2626 100%);
+            background-size: 200% 200%;
+            animation: gradientMove 10s ease infinite;
+        }
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+        .startup-shadow {
+            box-shadow: 0 20px 25px -5px rgba(220, 38, 38, 0.2), 
+                       0 10px 10px -5px rgba(0, 0, 0, 0.5);
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+        }
+        .accent-gradient {
+            background: linear-gradient(135deg, #991b1b 0%, #ffffff 100%);
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.4);
+        }
+        .dark-card {
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+        .red-glow {
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Navigation header -->
+    <nav class="relative z-10 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 premium-gradient rounded-lg flex items-center justify-center shadow-lg red-glow">
+                    <span class="text-xl">🧠</span>
+                </div>
+                <h1 class="text-xl font-bold text-white">Emotion AI</h1>
+            </div>
+            <div class="hidden md:flex space-x-6 text-white/80 text-sm font-medium">
+                <span class="hover:text-primary transition-colors cursor-pointer">Home</span>
+                <span class="hover:text-primary transition-colors cursor-pointer">About</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <!-- Titre principal -->
+        <div class="text-center mb-16">
+            <div class="animate-float mb-8">
+                <div class="w-20 h-20 premium-gradient rounded-2xl flex items-center justify-center mx-auto shadow-2xl">
+                    <span class="text-4xl">🎯</span>
+                </div>
+            </div>
+            <h2 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Detect 
+                <span class="bg-gradient-to-r from-primary to-white bg-clip-text text-transparent">
+                    Emotions
+                </span>
+            </h2>
+            <p class="text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
+                Advanced AI technology to analyze emotions in real-time. 
+                <span class="text-primary font-semibold">Simple, powerful, accurate.</span>
+            </p>
+        </div>
+
+        <!-- Conteneur principal -->
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+            <!-- Section Upload -->
+            <div class="dark-card rounded-2xl p-8 startup-shadow hover-lift transition-all duration-300">
+                <h3 class="text-xl font-semibold text-white mb-6 flex items-center">
+                    <div class="w-8 h-8 premium-gradient rounded-lg flex items-center justify-center mr-3 red-glow">
+                        <span class="text-sm">📤</span>
+                    </div>
+                    Upload Image
+                </h3>
+                
+                <form action="/predict" method="post" enctype="multipart/form-data" class="space-y-6">
+                    <!-- Zone de drag & drop -->
+                    <div class="relative">
+                        <input type="file" name="image" id="imageInput" required accept="image/*"
+                               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                        <div class="border-2 border-dashed border-gray-600 rounded-xl p-8 text-center hover:border-primary/50 transition-all duration-300 hover:bg-primary/5">
+                            <div class="mb-4">
+                                <div class="w-12 h-12 accent-gradient rounded-xl flex items-center justify-center mx-auto red-glow">
+                                    <span class="text-2xl">📷</span>
+                                </div>
+                            </div>
+                            <p class="text-white/80 text-base mb-2">
+                                Drop your image here or <span class="text-primary font-medium underline">browse files</span>
+                            </p>
+                            <p class="text-white/50 text-sm">PNG, JPG, JPEG supported</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Boutons d'action -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button type="submit" 
+                                class="flex-1 premium-gradient text-white font-medium py-3 px-6 rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200 red-glow">
+                            Analyze Emotion
+                        </button>
+                        <a href="/camera" 
+                           class="flex-1 bg-gray-dark hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 text-center border border-primary/30">
+                            Live Camera
+                        </a>
+                    </div>
+                </form>
+                
+                <!-- Indicateur de processus -->
+                <div id="loadingIndicator" class="hidden mt-6 text-center">
+                    <div class="inline-flex items-center text-white/80">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Analyzing...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Résultat -->
+            {% if result %}
+            <div class="dark-card rounded-2xl p-8 startup-shadow red-glow">
+                <h3 class="text-xl font-semibold text-white mb-6 flex items-center">
+                    <div class="w-8 h-8 accent-gradient rounded-lg flex items-center justify-center mr-3 red-glow">
+                        <span class="text-sm">🎯</span>
+                    </div>
+                    Result
+                </h3>
+                
+                <div class="text-center space-y-6">
+                    <!-- Émotion détectée -->
+                    <div class="bg-black/50 rounded-xl p-6 border border-primary/30">
+                        <p class="text-white/70 text-sm mb-2 uppercase tracking-wide">Detected Emotion</p>
+                        <p class="text-3xl font-bold text-primary mb-4">{{ result }}</p>
+                        <div class="text-5xl">
+                            {% if result.lower() == 'happy' %}😊
+                            {% elif result.lower() == 'sad' %}😢
+                            {% elif result.lower() == 'angry' %}😠
+                            {% elif result.lower() == 'surprise' %}😲
+                            {% elif result.lower() == 'fear' %}😨
+                            {% elif result.lower() == 'disgust' %}🤢
+                            {% else %}😐
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Image analysée -->
+                    <div class="bg-black/30 rounded-xl p-4 border border-primary/20">
+                        <img src="{{ image_path }}" alt="Analyzed image" 
+                             class="w-full max-w-sm mx-auto rounded-lg shadow-lg border border-primary/30">
+                    </div>
+                    
+                    <!-- Actions supplémentaires -->
+                    <div class="flex gap-3">
+                        <button class="flex-1 bg-gray-dark hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-all text-sm border border-primary/30">
+                            Save
+                        </button>
+                        <button class="flex-1 bg-gray-dark hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-all text-sm border border-primary/30">
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- État initial sans résultat -->
+            <div class="dark-card rounded-2xl p-8 startup-shadow opacity-60">
+                <h3 class="text-xl font-semibold text-white mb-6 flex items-center">
+                    <div class="w-8 h-8 bg-gray-dark rounded-lg flex items-center justify-center mr-3">
+                        <span class="text-sm">🎯</span>
+                    </div>
+                    Analysis Result
+                </h3>
+                <div class="text-center py-12">
+                    <div class="text-6xl mb-4 opacity-50">🤖</div>
+                    <p class="text-white/50 text-base">Upload an image to see the analysis</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Section Historique -->
+        {% if history %}
+        <div class="mt-16">
+            <div class="glass-effect rounded-2xl p-8">
+                <h3 class="text-xl font-semibold text-white mb-6 flex items-center">
+                    <div class="w-8 h-8 premium-gradient rounded-lg flex items-center justify-center mr-3">
+                        <span class="text-sm">📜</span>
+                    </div>
+                    Analysis History
+                </h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {% for item in history %}
+                    <div class="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-all duration-300 cursor-pointer">
+                        <img src="{{ item.image }}" 
+                             class="w-full h-20 object-cover rounded-lg mb-3">
+                        <p class="text-white/70 text-sm text-center">{{ item.emotion }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative z-10 mt-20 text-center text-white/50">
+        <div class="max-w-7xl mx-auto px-6 py-8 border-t border-white/10">
+            <p class="mb-2">Powered by Advanced AI Technology</p>
+            <p class="text-sm">Real-time emotion detection • Enterprise-grade accuracy</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript pour les interactions -->
+    <script>
+        // Progressive Enhancement
+        
+        const form = document.querySelector('form');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
+        // Gestion du drag & drop
+        const dropZone = document.querySelector('input[type="file"]').parentElement;
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight(e) {
+            dropZone.classList.add('border-accent/70', 'bg-white/10');
+        }
+        
+        function unhighlight(e) {
+            dropZone.classList.remove('border-accent/70', 'bg-white/10');
+        }
+        
+        dropZone.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            const fileInput = document.getElementById('imageInput');
+            fileInput.files = files;
+        }
+        
+        // Indicateur de chargement
+        form.addEventListener('submit', function() {
+            loadingIndicator.classList.remove('hidden');
+            document.querySelector('button[type="submit"]').disabled = true;
+        });
+        
+        // Accessibilité clavier
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+        
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
+        });
+    </script>
+    
+    <!-- Styles d'accessibilité -->
+    <style>
+        .keyboard-navigation *:focus {
+            outline: 2px solid #06b6d4 !important;
+            outline-offset: 2px !important;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .animate-float {
+                animation: none !important;
+            }
+            
+            * {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</body>
+</html>
